@@ -1,0 +1,23 @@
+GET localhost/api/beers
+Content-Type: application/json
+Accept: application/json
+
+{
+    "longitude": -46.65019806906653,
+    "latitude": -23.54963413268389,
+    "distance": 1000
+}
+
+###
+
+POST localhost/api/beers
+Content-Type: application/json
+Accept: application/json
+
+{
+    "name": "Super Beer",
+    "type": "Pilsen",
+    "price": "25.33",
+    "longitude": -46.65019806906653,
+    "latitude": -23.54963413268389
+}

@@ -1,0 +1,31 @@
+services:
+    php:
+        build:
+            context: ./docker
+            args:
+                GROUP_ID: ${GROUP_ID}
+                USER_ID: ${USER_ID}
+        working_dir: "/app"
+        ports:
+            - "80:8080"
+        volumes:
+            - ".:/app"
+        env_file:
+            - "container.env"
+
+
+    mariadb:
+        image: mariadb:11-noble
+        ports:
+            - "3306:3306"
+        environment:
+            MARIADB_DATABASE: beerbest
+            MARIADB_ROOT_PASSWORD: 123456
+
+
+    mongodb:
+        image: "mongo:7.0-jammy"
+        ports:
+            - "27017:27017"
+        env_file:
+            - "container.env"
