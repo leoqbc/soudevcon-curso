@@ -3,18 +3,19 @@
  */
 db.createCollection("locations")
 
-db.locations.insertOne({
-    "_id": UUID(),
-    "type": "Feature",
-    "properties": {},
-    "geometry": {
-        "coordinates": [
-            -46.6472880496342,
-            -23.551371984997232
-        ],
-        "type": "Point"
-    }
-})
+// Exemplo
+// db.locations.insertOne({
+//     "_id": UUID(),
+//     "type": "Feature",
+//     "properties": {},
+//     "geometry": {
+//         "coordinates": [
+//             -46.6472880496342,
+//             -23.551371984997232
+//         ],
+//         "type": "Point"
+//     }
+// })
 
 db.locations.insertMany([
     {
