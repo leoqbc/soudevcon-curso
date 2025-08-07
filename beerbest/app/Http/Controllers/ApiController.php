@@ -4,11 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Beer;
 use App\Models\Location;
+use App\Service\BeerService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class ApiController extends Controller
 {
+    public function __construct(
+        protected BeerService $beerService,
+    ) {
+    }
     public function store(Request $request)
     {
         $request->validate([
@@ -49,29 +54,13 @@ class ApiController extends Controller
             'distance' => 'required|numeric',
         ]);
 
-        $longitude = $request->input('longitude');
-        $latitude = $request->input('latitude');
-        $distance = $request->input('distance');
+        $userLongitude = $request->input('longitude');
+        $userLatitude = $request->input('latitude');
+        $userRadiusDistance = $request->input('distance');
 
         // Adicionar na camada: DataAccess/Infra/Repository
-        $results = DB::table('locations as l')
-            ->join('beers as b', 'b.id', '=', 'l.beer_id')
-            ->select(
-                'b.name',
-                'b.type',
-                'b.price',
-                'l.longitude',
-                'l.latitude'
-            )->whereRaw("
-                6371 * 2 * ASIN(
-                    SQRT(
-                        POW(SIN((RADIANS(?) - RADIANS(l.latitude)) / 2), 2) +
-                        COS(RADIANS(?)) * COS(RADIANS(l.latitude)) *
-                        POW(SIN((RADIANS(?) - RADIANS(l.longitude)) / 2), 2)
-                    )
-                ) <= ?
-            ", [$latitude, $latitude, $longitude, $distance / 1000])
-            ->get();
+        // Pode virar um DTO
+        $results = $this->beerService->search($userLongitude, $userLatitude, $userRadiusDistance);
 
         // Adicionar Presenter para saída padrão
         return [
