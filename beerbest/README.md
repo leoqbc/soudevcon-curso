@@ -24,6 +24,10 @@ Dia 2:
 4. Testando o novo filtro
 5. Considerações finais
 
+Repositórios com as soluções: 
+- branch: **Aula1** - Aula de Quarta-feira
+- branch: **Aula2** - Aula de Quinta-feira
+
 Exemplo de um GeoJson
 ```json
 {
