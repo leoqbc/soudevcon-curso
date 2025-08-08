@@ -10,7 +10,7 @@ class BeerService
 {
     public function __construct(
         // O componente passado aqui deve implementar as duas interfaces
-        protected RepositoryInterface & GeoLocationRepositoryInterface $geoLocationRepository,
+        protected GeoLocationRepositoryInterface $geoLocationRepository,
     ) {
     }
 

@@ -1,7 +1,7 @@
 services:
     php:
         build:
-            context: ./docker
+            context: "./docker"
             args:
                 GROUP_ID: ${GROUP_ID}
                 USER_ID: ${USER_ID}
@@ -13,19 +13,23 @@ services:
         env_file:
             - "container.env"
 
-
     mariadb:
-        image: mariadb:11-noble
+        image: "mariadb:11-noble"
         ports:
             - "3306:3306"
         environment:
-            MARIADB_DATABASE: beerbest
-            MARIADB_ROOT_PASSWORD: 123456
+            MARIADB_DATABASE: "beerbest"
+            MARIADB_ROOT_PASSWORD: "123456"
 
+    mongodb:
+        image: "mongo:7.0-jammy"
+        ports:
+            - "27017:27017"
+        env_file:
+            - "container.env"
 
-#    mongodb:
-#        image: "mongo:7.0-jammy"
-#        ports:
-#            - "27017:27017"
-#        env_file:
-#            - "container.env"
+    redis:
+        image: "redis:8.2"
+        ports:
+            - "6379:6379"
+        restart: always

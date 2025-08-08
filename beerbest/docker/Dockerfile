@@ -5,6 +5,17 @@ USER root
 ARG USER_ID=1000
 ARG GROUP_ID=1000
 
+COPY --from=ghcr.io/php/pie:bin /pie /usr/bin/pie
+
+RUN apk --update --no-cache add autoconf \
+    build-base linux-headers \
+    curl-dev openssl-dev
+
+RUN pie install mongodb/mongodb-extension
+RUN pie install xdebug/xdebug
+
+RUN apk del autoconf build-base linux-headers
+
 RUN composer self-update
 
 RUN docker-php-serversideup-set-id www-data ${USER_ID}:${GROUP_ID} \
